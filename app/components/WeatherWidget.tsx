@@ -141,21 +141,21 @@ export default function WeatherWidget() {
             </div>
             
             {/* Tomorrow's Weather */}
-            <div className="bg-blue-50 p-3 rounded-lg">
-              <h4 className="font-semibold text-sm mb-2">📅 明日の天気</h4>
+            <div className="bg-gray-800 border border-gray-600 p-3 rounded-lg">
+              <h4 className="font-semibold text-sm mb-2 text-white">📅 明日の天気</h4>
               <div className="flex items-center space-x-3">
                 <span className="text-xl">{getWeatherIcon(weather.tomorrow.description)}</span>
                 <div>
-                  <p className="font-semibold">{weather.tomorrow.temperature}°C</p>
-                  <p className="text-xs text-gray-600">{weather.tomorrow.description}</p>
+                  <p className="font-semibold text-white">{weather.tomorrow.temperature}°C</p>
+                  <p className="text-xs text-gray-300">{weather.tomorrow.description}</p>
                   {weather.tomorrow.precipitation > 0 && (
-                    <p className="text-xs text-blue-600">降水量: {weather.tomorrow.precipitation}mm</p>
+                    <p className="text-xs text-blue-300">降水量: {weather.tomorrow.precipitation}mm</p>
                   )}
                 </div>
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
               <div className="flex items-center space-x-2">
                 <span>💧</span>
                 <span>湿度: {weather.current.humidity}%</span>
@@ -178,19 +178,19 @@ export default function WeatherWidget() {
               )}
             </div>
             
-            <div className="border-t pt-4">
-              <h4 className="font-semibold text-sm mb-2">🎒 明日の観光アドバイス</h4>
+            <div className="border-t border-gray-600 pt-4">
+              <h4 className="font-semibold text-sm mb-2 text-white">🎒 明日の観光アドバイス</h4>
               <ul className="space-y-1">
                 {getWeatherAdvice(weather.current, weather.tomorrow).map((advice, index) => (
-                  <li key={index} className="text-xs text-gray-600 flex items-start">
-                    <span className="text-blue-500 mr-2 mt-0.5">•</span>
+                  <li key={index} className="text-xs text-gray-300 flex items-start">
+                    <span className="text-blue-400 mr-2 mt-0.5">•</span>
                     <span>{advice}</span>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="text-xs text-gray-500 text-center">
+            <div className="text-xs text-gray-400 text-center">
               最終更新: {new Date(weather.lastUpdated).toLocaleTimeString('ja-JP')}
             </div>
             

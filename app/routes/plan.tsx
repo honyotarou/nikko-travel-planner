@@ -202,37 +202,37 @@ export default function Plan() {
             <div className="space-y-6">
               <WeatherWidget />
               
-              <div className="card bg-white shadow-lg">
-                <div className="card-body">
-                  <h3 className="card-title text-lg mb-4">💡 プランニングのコツ</h3>
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-800 mb-4">💡 プランニングのコツ</h3>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start">
                       <span className="text-blue-500 mr-2">•</span>
-                      雨の日は屋内スポット（東照宮、輪王寺）がおすすめ
+                      <span className="text-gray-600">雨の日は屋内スポット（東照宮、輪王寺）がおすすめ</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-500 mr-2">•</span>
-                      半日プランなら東照宮エリアに集中
+                      <span className="text-gray-600">半日プランなら東照宮エリアに集中</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-500 mr-2">•</span>
-                      1日プランなら中禅寺湖エリアも回れます
+                      <span className="text-gray-600">1日プランなら中禅寺湖エリアも回れます</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-500 mr-2">•</span>
-                      車なら移動時間を短縮できます
+                      <span className="text-gray-600">車なら移動時間を短縮できます</span>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <div className="card bg-white shadow-lg">
-                <div className="card-body">
-                  <h3 className="card-title text-lg mb-4">🏛️ 主要スポット</h3>
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-800 mb-4">🏛️ 主要スポット</h3>
                   <div className="space-y-2">
                     {spots.slice(0, 5).map((spot: any) => (
                       <div key={spot.id} className="flex justify-between items-center">
-                        <span className="text-sm">{spot.name}</span>
+                        <span className="text-sm text-gray-700">{spot.name}</span>
                         <span className="text-xs text-gray-500">
                           {Math.floor(spot.duration / 60)}時間{spot.duration % 60 > 0 ? `${spot.duration % 60}分` : ''}
                         </span>

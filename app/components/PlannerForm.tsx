@@ -393,12 +393,12 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
         <button
           type="button"
           onClick={generatePlan}
-          className="btn btn-primary w-full text-lg py-3"
+          className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 w-full disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!userLocation}
         >
           {!userLocation ? (
             <>
-              <span className="loading loading-spinner loading-sm"></span>
+              <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2 inline-block"></span>
               位置情報取得中...
             </>
           ) : (
@@ -411,8 +411,8 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
 
       {/* Generated Plan Display */}
       {generatedPlan && (
-        <div className="mt-8 p-6 bg-green-50 rounded-lg">
-          <h3 className="text-xl font-bold text-green-800 mb-4">
+        <div className="mt-8 p-6 bg-white rounded-2xl border border-gray-200 shadow-lg">
+          <h3 className="text-xl font-bold text-gray-800 mb-4">
             ✨ あなたにおすすめのプラン
           </h3>
           
@@ -425,21 +425,21 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
 
           <div className="space-y-4">
             {generatedPlan.spots.map((spot: any, index: number) => (
-              <div key={spot.id} className="flex items-center space-x-4 p-3 bg-white rounded-lg">
-                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
+              <div key={spot.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 text-white rounded-full flex items-center justify-center font-bold">
                   {index + 1}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold">{spot.name}</h4>
+                  <h4 className="font-semibold text-gray-800">{spot.name}</h4>
                   <p className="text-sm text-gray-600">{spot.description}</p>
                   <p className="text-xs text-blue-600">
                     所要時間: {Math.floor(spot.duration / 60)}時間{spot.duration % 60 > 0 ? `${spot.duration % 60}分` : ''}
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className={`badge ${
-                    spot.category === 'cultural' ? 'badge-primary' :
-                    spot.category === 'nature' ? 'badge-success' : 'badge-warning'
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    spot.category === 'cultural' ? 'bg-blue-100 text-blue-800' :
+                    spot.category === 'nature' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
                   }`}>
                     {spot.category === 'cultural' ? '文化' :
                      spot.category === 'nature' ? '自然' : '温泉'}
@@ -450,18 +450,18 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
           </div>
 
           {generatedPlan.weatherConsideration && (
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <h4 className="font-semibold text-blue-800 mb-2">🌤️ 天気を考慮したプラン</h4>
               <p className="text-sm text-blue-700">{generatedPlan.weatherConsideration}</p>
             </div>
           )}
 
           {generatedPlan.recommendations.length > 0 && (
-            <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
-              <h4 className="font-semibold text-yellow-800 mb-2">💡 おすすめポイント・持ち物</h4>
+            <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
+              <h4 className="font-semibold text-amber-800 mb-2">💡 おすすめポイント・持ち物</h4>
               <ul className="space-y-1">
                 {generatedPlan.recommendations.map((rec: string, index: number) => (
-                  <li key={index} className="text-sm text-yellow-700">• {rec}</li>
+                  <li key={index} className="text-sm text-amber-700">• {rec}</li>
                 ))}
               </ul>
             </div>
