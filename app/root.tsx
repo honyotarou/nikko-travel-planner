@@ -42,7 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <span className="text-white text-xl">🏔️</span>
                   </div>
                   <a href="/" className="text-gray-900 text-xl font-bold">
-                    日光観光プランナー
+                    全国観光プランナー
                   </a>
                 </div>
                 <nav className="hidden md:flex items-center space-x-8">
@@ -66,7 +66,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="text-center">
                 <div className="flex items-center justify-center space-x-2 mb-3">
                   <span className="text-2xl">🏔️</span>
-                  <span className="text-gray-900 font-bold">日光観光プランナー</span>
+                  <span className="text-gray-900 font-bold">全国観光プランナー</span>
                 </div>
                 <p className="text-gray-600 text-sm mb-2">GPS位置情報と天気予報を活用した観光プラン提案サービス</p>
                 <p className="text-gray-500 text-xs">Copyright © 2024 - All rights reserved</p>

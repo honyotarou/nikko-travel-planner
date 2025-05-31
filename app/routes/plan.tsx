@@ -4,23 +4,29 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { db } from "~/db";
 import { touristSpots } from "~/db/schema";
+import { eq } from "drizzle-orm";
 import PlannerForm from "~/components/PlannerForm";
 import WeatherWidget from "~/components/WeatherWidget";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "プラン作成 - 日光観光プランナー" },
-    { name: "description", content: "あなたの条件に合わせた日光観光プランを作成します" },
+    { title: "プラン作成 - 全国観光プランナー" },
+    { name: "description", content: "あなたの条件に合わせた観光プランを作成します" },
   ];
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
   try {
-    const spots = await db.select().from(touristSpots);
-    return json({ spots });
+    const url = new URL(request.url);
+    const prefecture = url.searchParams.get('prefecture') || '栃木県';
+    
+    const spots = await db.select().from(touristSpots).where(
+      eq(touristSpots.prefecture, prefecture)
+    );
+    return json({ spots, selectedPrefecture: prefecture });
   } catch (error) {
     console.error("Database error:", error);
-    // Return mock data as fallback
+    // Return mock data as fallback for Tochigi
     const mockSpots = [
       {
         id: 1,
@@ -88,16 +94,17 @@ export const loader: LoaderFunction = async () => {
         popularity: 6,
       }
     ];
-    return json({ spots: mockSpots });
+    return json({ spots: mockSpots, selectedPrefecture: '栃木県' });
   }
 };
 
 interface LoaderData {
   spots: any[];
+  selectedPrefecture: string;
 }
 
 export default function Plan() {
-  const { spots } = useLoaderData<LoaderData>();
+  const { spots, selectedPrefecture } = useLoaderData<LoaderData>();
   const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
   const [locationError, setLocationError] = useState<string>("");
 
@@ -155,7 +162,7 @@ export default function Plan() {
             観光プラン作成
           </h1>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            あなたの条件に合わせて最適な日光観光プランを提案します
+            あなたの条件に合わせて最適な観光プランを提案します
           </p>
         </header>
 
@@ -168,6 +175,66 @@ export default function Plan() {
                   <h2 className="text-2xl font-bold text-gray-900 mb-8">旅行条件の入力</h2>
                   
                   {/* Location Status */}
+                  {/* Prefecture Selection */}
+                  <div className="mb-8 p-6 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-gray-200 rounded-2xl">
+                    <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+                      <span className="mr-2">🗾</span>
+                      観光地域の選択
+                    </h3>
+                    <select 
+                      className="select select-bordered w-full bg-white border-gray-300 text-gray-900"
+                      defaultValue="栃木県"
+                    >
+                      <option value="北海道">北海道</option>
+                      <option value="青森県">青森県</option>
+                      <option value="岩手県">岩手県</option>
+                      <option value="宮城県">宮城県</option>
+                      <option value="秋田県">秋田県</option>
+                      <option value="山形県">山形県</option>
+                      <option value="福島県">福島県</option>
+                      <option value="茨城県">茨城県</option>
+                      <option value="栃木県">栃木県</option>
+                      <option value="群馬県">群馬県</option>
+                      <option value="埼玉県">埼玉県</option>
+                      <option value="千葉県">千葉県</option>
+                      <option value="東京都">東京都</option>
+                      <option value="神奈川県">神奈川県</option>
+                      <option value="新潟県">新潟県</option>
+                      <option value="富山県">富山県</option>
+                      <option value="石川県">石川県</option>
+                      <option value="福井県">福井県</option>
+                      <option value="山梨県">山梨県</option>
+                      <option value="長野県">長野県</option>
+                      <option value="岐阜県">岐阜県</option>
+                      <option value="静岡県">静岡県</option>
+                      <option value="愛知県">愛知県</option>
+                      <option value="三重県">三重県</option>
+                      <option value="滋賀県">滋賀県</option>
+                      <option value="京都府">京都府</option>
+                      <option value="大阪府">大阪府</option>
+                      <option value="兵庫県">兵庫県</option>
+                      <option value="奈良県">奈良県</option>
+                      <option value="和歌山県">和歌山県</option>
+                      <option value="鳥取県">鳥取県</option>
+                      <option value="島根県">島根県</option>
+                      <option value="岡山県">岡山県</option>
+                      <option value="広島県">広島県</option>
+                      <option value="山口県">山口県</option>
+                      <option value="徳島県">徳島県</option>
+                      <option value="香川県">香川県</option>
+                      <option value="愛媛県">愛媛県</option>
+                      <option value="高知県">高知県</option>
+                      <option value="福岡県">福岡県</option>
+                      <option value="佐賀県">佐賀県</option>
+                      <option value="長崎県">長崎県</option>
+                      <option value="熊本県">熊本県</option>
+                      <option value="大分県">大分県</option>
+                      <option value="宮崎県">宮崎県</option>
+                      <option value="鹿児島県">鹿児島県</option>
+                      <option value="沖縄県">沖縄県</option>
+                    </select>
+                  </div>
+
                   <div className="mb-8 p-6 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-gray-200 rounded-2xl">
                     <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
                       <span className="mr-2">📍</span>
@@ -193,7 +260,7 @@ export default function Plan() {
                     )}
                   </div>
 
-                  <PlannerForm spots={spots} userLocation={userLocation} />
+                  <PlannerForm spots={spots} userLocation={userLocation} selectedPrefecture={selectedPrefecture} />
                 </div>
               </div>
             </div>

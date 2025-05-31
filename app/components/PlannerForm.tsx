@@ -4,9 +4,10 @@ import { Form } from "@remix-run/react";
 interface PlannerFormProps {
   spots: any[];
   userLocation: {lat: number, lng: number} | null;
+  selectedPrefecture: string;
 }
 
-export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
+export default function PlannerForm({ spots, userLocation, selectedPrefecture }: PlannerFormProps) {
   const [formData, setFormData] = useState({
     duration: "halfday",
     groupSize: 2,

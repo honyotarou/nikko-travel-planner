@@ -3,8 +3,8 @@ import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "日光観光プランナー" },
-    { name: "description", content: "GPS位置情報と天気予報を活用した日光観光プランナー" },
+    { title: "全国観光プランナー" },
+    { name: "description", content: "GPS位置情報と天気予報を活用した全国47都道府県の観光プランナー" },
   ];
 };
 
@@ -26,11 +26,11 @@ export default function Index() {
               <span className="text-4xl">🏔️</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900">
-              日光観光プランナー
+              全国観光プランナー
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               GPS位置情報と天気予報を活用して、<br className="hidden md:block" />
-              あなたにぴったりの日光観光プランを提案します
+              全国47都道府県の観光プランを提案します
             </p>
           </div>
           
@@ -99,16 +99,16 @@ export default function Index() {
           
           {/* Tourist Spots */}
           <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">🗺️ 対応観光スポット</h3>
+            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">🗺️ 対応観光エリア</h3>
             <div className="flex flex-wrap justify-center gap-3">
-              {["東照宮", "華厳の滝", "中禅寺湖", "いろは坂", "輪王寺", "奥日光温泉", "竜頭の滝", "戦場ヶ原"].map((spot, index) => (
+              {["北海道", "東京都", "京都府", "大阪府", "沖縄県", "広島県", "石川県", "長野県"].map((spot, index) => (
                 <span key={index} className="px-4 py-2 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 text-gray-700 rounded-full text-sm border border-gray-200">
                   {spot}
                 </span>
               ))}
             </div>
             <p className="text-center text-gray-600 text-sm mt-6">
-              日光の主要観光スポット10箇所以上に対応
+              全国47都道府県・235箇所以上の観光スポットに対応
             </p>
           </div>
         </div>
