@@ -21,6 +21,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     const prefecture = url.searchParams.get('prefecture') || '栃木県';
     const region = url.searchParams.get('region');
     
+    console.log(`Loading data for prefecture: ${prefecture}, region: ${region}`);
+    
     let spots;
     if (region) {
       spots = await db.select().from(touristSpots).where(
@@ -35,11 +37,15 @@ export const loader: LoaderFunction = async ({ request }) => {
       );
     }
     
+    console.log(`Found ${spots.length} spots`);
+    
     // Get unique regions for the selected prefecture
     const regions = await db.select({ region: touristSpots.region })
       .from(touristSpots)
       .where(eq(touristSpots.prefecture, prefecture))
       .groupBy(touristSpots.region);
+    
+    console.log(`Found regions: ${regions.map(r => r.region).join(', ')}`);
     
     return json({ 
       spots, 

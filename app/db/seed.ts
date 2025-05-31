@@ -1,8 +1,15 @@
 import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { touristSpots } from './schema';
+import path from 'path';
 
-const sqlite = new Database('./database.sqlite');
+const dbPath = process.env.NODE_ENV === 'production' 
+  ? path.join(process.cwd(), 'database.sqlite')
+  : './database.sqlite';
+
+console.log(`Seeding database at: ${dbPath}`);
+
+const sqlite = new Database(dbPath);
 const db = drizzle(sqlite);
 
 const regionalSpotsData = [
