@@ -10,27 +10,25 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="relative">
+    <div className="relative bg-black">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-3/4 left-1/2 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl animate-pulse delay-500"></div>
         </div>
         
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl mb-6 shadow-2xl shadow-blue-500/25">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-3xl mb-6 shadow-2xl shadow-emerald-500/25">
               <span className="text-4xl">🏔️</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
-                日光観光プランナー
-              </span>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+              日光観光プランナー
             </h1>
-            <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               GPS位置情報と天気予報を活用して、<br className="hidden md:block" />
               あなたにぴったりの日光観光プランを提案します
             </p>
@@ -39,7 +37,7 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link
               to="/plan"
-              className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              className="group bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:scale-105"
             >
               <span className="flex items-center space-x-2">
                 <span>🚀</span>
@@ -47,7 +45,7 @@ export default function Index() {
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </span>
             </Link>
-            <button className="text-white/80 hover:text-white px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300">
+            <button className="text-gray-300 hover:text-white px-8 py-4 rounded-lg border border-gray-600 hover:border-gray-400 transition-all duration-300 hover:bg-gray-800">
               デモを見る
             </button>
           </div>
@@ -90,26 +88,26 @@ export default function Index() {
               }
             ].map((feature, index) => (
               <div key={index} className="group relative">
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform hover:scale-105">
+                <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 hover:bg-gray-800 hover:border-gray-600 transition-all duration-300 transform hover:scale-105">
                   <div className="text-4xl mb-4">{feature.icon}</div>
                   <h3 className="text-white font-semibold text-lg mb-2">{feature.title}</h3>
-                  <p className="text-white/70 text-sm">{feature.description}</p>
+                  <p className="text-gray-400 text-sm">{feature.description}</p>
                 </div>
               </div>
             ))}
           </div>
           
           {/* Tourist Spots */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
+          <div className="bg-gray-900 border border-gray-700 rounded-3xl p-8">
             <h3 className="text-2xl font-bold text-white text-center mb-8">🗺️ 対応観光スポット</h3>
             <div className="flex flex-wrap justify-center gap-3">
               {["東照宮", "華厳の滝", "中禅寺湖", "いろは坂", "輪王寺", "奥日光温泉", "竜頭の滝", "戦場ヶ原"].map((spot, index) => (
-                <span key={index} className="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white rounded-full text-sm border border-white/20 backdrop-blur-sm">
+                <span key={index} className="px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 text-white rounded-full text-sm border border-gray-600">
                   {spot}
                 </span>
               ))}
             </div>
-            <p className="text-center text-white/70 text-sm mt-6">
+            <p className="text-center text-gray-400 text-sm mt-6">
               日光の主要観光スポット10箇所以上に対応
             </p>
           </div>
@@ -150,18 +148,18 @@ export default function Index() {
               }
             ].map((item, index) => (
               <div key={index} className="relative text-center">
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
-                  <div className="text-6xl text-white/20 font-bold mb-4">{item.step}</div>
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                <div className="bg-gray-900 border border-gray-700 rounded-3xl p-8 hover:bg-gray-800 transition-all duration-300">
+                  <div className="text-6xl text-gray-700 font-bold mb-4">{item.step}</div>
+                  <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
                     <span className="text-3xl">{item.icon}</span>
                   </div>
                   <h3 className="text-white text-xl font-semibold mb-4">{item.title}</h3>
-                  <p className="text-white/70">
+                  <p className="text-gray-400">
                     {item.description}
                   </p>
                 </div>
                 {index < 2 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                  <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-600"></div>
                 )}
               </div>
             ))}
