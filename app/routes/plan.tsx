@@ -143,14 +143,38 @@ export default function Plan() {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           });
+          setLocationError("");
         },
         (error) => {
-          setLocationError("位置情報の取得に失敗しました。手動で現在地を設定してください。");
           console.error("Geolocation error:", error);
+          let errorMessage = "位置情報の取得に失敗しました。";
+          
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage = "位置情報の利用が拒否されています。ブラウザの設定をご確認ください。";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage = "位置情報が利用できません。";
+              break;
+            case error.TIMEOUT:
+              errorMessage = "位置情報の取得がタイムアウトしました。";
+              break;
+          }
+          
+          setLocationError(errorMessage);
+          // Set default location to Nikko (fallback)
+          setUserLocation({ lat: 36.7580, lng: 139.5994 });
+        },
+        {
+          timeout: 10000,
+          enableHighAccuracy: false,
+          maximumAge: 300000 // 5 minutes
         }
       );
     } else {
       setLocationError("お使いのブラウザは位置情報取得に対応していません。");
+      // Set default location to Nikko (fallback)
+      setUserLocation({ lat: 36.7580, lng: 139.5994 });
     }
   }, []);
 
@@ -250,14 +274,17 @@ export default function Plan() {
                       <div className="space-y-2">
                         <p className="text-green-600 flex items-center">
                           <span className="mr-2">✓</span>
-                          位置情報を取得しました
+                          {locationError ? "デフォルト位置を使用中" : "位置情報を取得しました"}
                         </p>
                         <p className="text-gray-600 text-sm">
                           栃木県{selectedRegion ? `・${selectedRegion}` : ''}までの距離: 約 {distanceToDestination?.toFixed(1)} km
                         </p>
+                        {locationError && (
+                          <p className="text-amber-600 text-xs">
+                            ⚠️ {locationError}
+                          </p>
+                        )}
                       </div>
-                    ) : locationError ? (
-                      <p className="text-red-600">{locationError}</p>
                     ) : (
                       <div className="flex items-center text-blue-600">
                         <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-600 border-t-transparent mr-2"></div>

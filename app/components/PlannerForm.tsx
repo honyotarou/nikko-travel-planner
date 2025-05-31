@@ -393,19 +393,9 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
         <button
           type="button"
           onClick={generatePlan}
-          className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 w-full disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={!userLocation}
+          className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 w-full"
         >
-          {!userLocation ? (
-            <>
-              <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2 inline-block"></span>
-              位置情報取得中...
-            </>
-          ) : (
-            <>
-              🎯 プランを生成する
-            </>
-          )}
+          🎯 プランを生成する
         </button>
       </Form>
 
