@@ -10,106 +10,164 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-green-50">
-      <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            🏔️ 日光観光プランナー
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            GPS位置情報と天気予報を活用して、あなたにぴったりの日光観光プランを提案します
-          </p>
-        </header>
-
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="card bg-white shadow-lg">
-              <div className="card-body">
-                <h2 className="card-title text-xl mb-4">🎯 おすすめ機能</h2>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span>
-                    現在地からの距離を自動計算
-                  </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span>
-                    天気予報に応じたプラン調整
-                  </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span>
-                    滞在時間に最適化されたルート
-                  </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span>
-                    年齢・人数に合わせた提案
-                  </li>
-                </ul>
-              </div>
+    <div className="relative">
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <div className="mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl mb-6 shadow-2xl shadow-blue-500/25">
+              <span className="text-4xl">🏔️</span>
             </div>
-
-            <div className="card bg-white shadow-lg">
-              <div className="card-body">
-                <h2 className="card-title text-xl mb-4">🗺️ 対応エリア</h2>
-                <div className="space-y-2">
-                  <div className="badge badge-primary">東照宮</div>
-                  <div className="badge badge-secondary">華厳の滝</div>
-                  <div className="badge badge-accent">中禅寺湖</div>
-                  <div className="badge badge-info">いろは坂</div>
-                  <div className="badge badge-success">輪王寺</div>
-                  <div className="badge badge-warning">奥日光温泉</div>
-                </div>
-                <p className="text-sm text-gray-600 mt-4">
-                  日光の主要観光スポット10箇所以上に対応
-                </p>
-              </div>
-            </div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+                日光観光プランナー
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+              GPS位置情報と天気予報を活用して、<br className="hidden md:block" />
+              あなたにぴったりの日光観光プランを提案します
+            </p>
           </div>
-
-          <div className="text-center">
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link
               to="/plan"
-              className="btn btn-primary btn-lg px-8 py-4 text-white"
+              className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
             >
-              🚀 プラン作成を始める
+              <span className="flex items-center space-x-2">
+                <span>🚀</span>
+                <span>プラン作成を始める</span>
+                <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+              </span>
             </Link>
-          </div>
-
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-8">
-              かんたん3ステップ
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">📍</span>
-                </div>
-                <h4 className="font-semibold mb-2">1. 位置情報取得</h4>
-                <p className="text-sm text-gray-600">
-                  現在地から日光までの距離を自動計算
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">⚙️</span>
-                </div>
-                <h4 className="font-semibold mb-2">2. 条件入力</h4>
-                <p className="text-sm text-gray-600">
-                  滞在時間、人数、年齢層を選択
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🎯</span>
-                </div>
-                <h4 className="font-semibold mb-2">3. プラン提案</h4>
-                <p className="text-sm text-gray-600">
-                  天気を考慮した最適なルートを表示
-                </p>
-              </div>
-            </div>
+            <button className="text-white/80 hover:text-white px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300">
+              デモを見る
+            </button>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              スマートな機能
+            </h2>
+            <p className="text-white/70 text-lg max-w-2xl mx-auto">
+              最新技術を活用した、これまでにない観光体験を提供します
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {[
+              {
+                icon: "📍",
+                title: "GPS連携",
+                description: "現在地からの距離を自動計算"
+              },
+              {
+                icon: "🌤️",
+                title: "天気予報",
+                description: "リアルタイム天気に応じたプラン調整"
+              },
+              {
+                icon: "🎯",
+                title: "最適化",
+                description: "滞在時間に最適化されたルート"
+              },
+              {
+                icon: "👥",
+                title: "パーソナル",
+                description: "年齢・人数に合わせた提案"
+              }
+            ].map((feature, index) => (
+              <div key={index} className="group relative">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform hover:scale-105">
+                  <div className="text-4xl mb-4">{feature.icon}</div>
+                  <h3 className="text-white font-semibold text-lg mb-2">{feature.title}</h3>
+                  <p className="text-white/70 text-sm">{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Tourist Spots */}
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">🗺️ 対応観光スポット</h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {["東照宮", "華厳の滝", "中禅寺湖", "いろは坂", "輪王寺", "奥日光温泉", "竜頭の滝", "戦場ヶ原"].map((spot, index) => (
+                <span key={index} className="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white rounded-full text-sm border border-white/20 backdrop-blur-sm">
+                  {spot}
+                </span>
+              ))}
+            </div>
+            <p className="text-center text-white/70 text-sm mt-6">
+              日光の主要観光スポット10箇所以上に対応
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              かんたん3ステップ
+            </h2>
+            <p className="text-white/70 text-lg">
+              シンプルな操作で、あなただけの観光プランが完成
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "01",
+                icon: "📍",
+                title: "位置情報取得",
+                description: "現在地から日光までの距離を自動計算"
+              },
+              {
+                step: "02",
+                icon: "⚙️",
+                title: "条件入力",
+                description: "滞在時間、人数、年齢層を選択"
+              },
+              {
+                step: "03",
+                icon: "🎯",
+                title: "プラン提案",
+                description: "天気を考慮した最適なルートを表示"
+              }
+            ].map((item, index) => (
+              <div key={index} className="relative text-center">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+                  <div className="text-6xl text-white/20 font-bold mb-4">{item.step}</div>
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                    <span className="text-3xl">{item.icon}</span>
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">{item.title}</h3>
+                  <p className="text-white/70">
+                    {item.description}
+                  </p>
+                </div>
+                {index < 2 && (
+                  <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
