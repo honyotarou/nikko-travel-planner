@@ -3,3 +3,32 @@ node_modules
 /.cache
 /build
 .env
+*.log
+npm-debug.log*
+.DS_Store
+
+# Database
+database.sqlite
+database.sqlite-*
+
+# Logs
+logs
+*.log
+
+# Build outputs
+/public/build
+/.netlify
+/.vercel
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.production

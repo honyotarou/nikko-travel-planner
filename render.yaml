@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: nikko-travel-planner
+    env: node
+    plan: free
+    buildCommand: |
+      npm install
+      npm run build
+      npx drizzle-kit generate
+      npx drizzle-kit migrate
+      npx tsx app/db/seed.ts
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: ./database.sqlite
+      - key: OPENWEATHER_API_KEY
+        sync: false  # Set this in Render dashboard
+    autoDeploy: true
