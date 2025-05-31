@@ -415,25 +415,61 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
 
           <div className="space-y-4">
             {generatedPlan.spots.map((spot: any, index: number) => (
-              <div key={spot.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 text-white rounded-full flex items-center justify-center font-bold">
-                  {index + 1}
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-800">{spot.name}</h4>
-                  <p className="text-sm text-gray-600">{spot.description}</p>
-                  <p className="text-xs text-blue-600">
-                    所要時間: {Math.floor(spot.duration / 60)}時間{spot.duration % 60 > 0 ? `${spot.duration % 60}分` : ''}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    spot.category === 'cultural' ? 'bg-blue-100 text-blue-800' :
-                    spot.category === 'nature' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
-                  }`}>
-                    {spot.category === 'cultural' ? '文化' :
-                     spot.category === 'nature' ? '自然' : '温泉'}
-                  </span>
+              <div key={spot.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                    {index + 1}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-2">
+                      <h4 className="font-semibold text-gray-800">{spot.name}</h4>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        spot.category === 'cultural' ? 'bg-blue-100 text-blue-800' :
+                        spot.category === 'nature' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
+                      }`}>
+                        {spot.category === 'cultural' ? '文化' :
+                         spot.category === 'nature' ? '自然' : '温泉'}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-3">{spot.description}</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                      <div className="flex items-center space-x-1">
+                        <span className="text-blue-600">⏱️</span>
+                        <span className="text-gray-600">
+                          所要時間: {Math.floor(spot.duration / 60)}時間{spot.duration % 60 > 0 ? `${spot.duration % 60}分` : ''}
+                        </span>
+                      </div>
+                      
+                      {spot.admissionFee && (
+                        <div className="flex items-center space-x-1">
+                          <span className="text-green-600">💰</span>
+                          <span className="text-gray-600">入場料: {spot.admissionFee}</span>
+                        </div>
+                      )}
+                      
+                      {spot.parkingInfo && (
+                        <div className="flex items-center space-x-1">
+                          <span className="text-purple-600">🚗</span>
+                          <span className="text-gray-600">駐車場: {spot.parkingInfo}</span>
+                        </div>
+                      )}
+                      
+                      {spot.openingHours && (
+                        <div className="flex items-center space-x-1">
+                          <span className="text-orange-600">🕒</span>
+                          <span className="text-gray-600">営業時間: {spot.openingHours}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {spot.accessInfo && (
+                      <div className="mt-2 flex items-start space-x-1">
+                        <span className="text-indigo-600 mt-0.5">🚌</span>
+                        <span className="text-xs text-gray-600">アクセス: {spot.accessInfo}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

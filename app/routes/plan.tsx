@@ -341,13 +341,27 @@ export default function Plan() {
               <div className="bg-white rounded-2xl shadow-lg border border-gray-200">
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-800 mb-4">🏛️ 主要スポット</h3>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {spots.slice(0, 5).map((spot: any) => (
-                      <div key={spot.id} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-700">{spot.name}</span>
-                        <span className="text-xs text-gray-500">
-                          {Math.floor(spot.duration / 60)}時間{spot.duration % 60 > 0 ? `${spot.duration % 60}分` : ''}
-                        </span>
+                      <div key={spot.id} className="border-b border-gray-100 last:border-b-0 pb-3 last:pb-0">
+                        <div className="flex justify-between items-start mb-1">
+                          <span className="text-sm font-medium text-gray-800">{spot.name}</span>
+                          <span className="text-xs text-gray-500">
+                            {Math.floor(spot.duration / 60)}時間{spot.duration % 60 > 0 ? `${spot.duration % 60}分` : ''}
+                          </span>
+                        </div>
+                        {spot.admissionFee && (
+                          <div className="flex items-center space-x-1 text-xs text-gray-600">
+                            <span>💰</span>
+                            <span>{spot.admissionFee}</span>
+                          </div>
+                        )}
+                        {spot.parkingInfo && (
+                          <div className="flex items-center space-x-1 text-xs text-gray-600 mt-1">
+                            <span>🚗</span>
+                            <span>{spot.parkingInfo.length > 30 ? spot.parkingInfo.substring(0, 30) + '...' : spot.parkingInfo}</span>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>

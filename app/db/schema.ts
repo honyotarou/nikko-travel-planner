@@ -14,6 +14,10 @@ export const touristSpots = sqliteTable('tourist_spots', {
   season: text('season'), // spring, summer, autumn, winter, all
   weatherPreference: text('weather_preference'), // indoor, outdoor, both
   popularity: integer('popularity').default(0),
+  admissionFee: text('admission_fee'), // 入場料情報
+  parkingInfo: text('parking_info'), // 駐車場情報
+  accessInfo: text('access_info'), // アクセス情報
+  openingHours: text('opening_hours'), // 営業時間
 });
 
 export const weatherCache = sqliteTable('weather_cache', {
