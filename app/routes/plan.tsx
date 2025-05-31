@@ -168,8 +168,7 @@ export default function Plan() {
           }
           
           setLocationError(errorMessage);
-          // Set default location to Nikko (fallback)
-          setUserLocation({ lat: 36.7580, lng: 139.5994 });
+          // Don't set default location - keep userLocation as null
         },
         {
           timeout: 10000,
@@ -179,8 +178,7 @@ export default function Plan() {
       );
     } else {
       setLocationError("お使いのブラウザは位置情報取得に対応していません。");
-      // Set default location to Nikko (fallback)
-      setUserLocation({ lat: 36.7580, lng: 139.5994 });
+      // Don't set default location - keep userLocation as null
     }
   }, []);
 
