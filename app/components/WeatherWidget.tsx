@@ -93,25 +93,25 @@ export default function WeatherWidget() {
   };
 
   return (
-    <div className="card bg-white shadow-lg">
-      <div className="card-body">
-        <h3 className="card-title text-lg mb-4">
+    <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-lg">
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-white mb-4">
           🌤️ 日光の天気予報
         </h3>
         
         {loading && (
           <div className="text-center py-4">
             <span className="loading loading-spinner loading-md"></span>
-            <p className="text-sm text-gray-600 mt-2">天気情報を取得中...</p>
+            <p className="text-sm text-gray-400 mt-2">天気情報を取得中...</p>
           </div>
         )}
         
         {error && (
-          <div className="alert alert-error">
-            <span>{error}</span>
+          <div className="bg-red-900/20 border border-red-700 rounded-lg p-4">
+            <span className="text-red-400">{error}</span>
             <button 
               onClick={fetchWeather}
-              className="btn btn-sm btn-outline"
+              className="ml-2 px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700"
             >
               再試行
             </button>
@@ -121,8 +121,8 @@ export default function WeatherWidget() {
         {weather && !loading && (
           <div className="space-y-4">
             {weather.isMockData && (
-              <div className="alert alert-info alert-sm">
-                <span className="text-xs">デモデータを表示中（API設定が必要）</span>
+              <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-2 mb-4">
+                <span className="text-xs text-blue-400">デモデータを表示中（API設定が必要）</span>
               </div>
             )}
             
@@ -131,10 +131,10 @@ export default function WeatherWidget() {
               <div className="flex items-center space-x-3">
                 <span className="text-3xl">{getWeatherIcon(weather.current.description)}</span>
                 <div>
-                  <p className="text-2xl font-bold">{weather.current.temperature}°C</p>
-                  <p className="text-sm text-gray-600">{weather.current.description}</p>
+                  <p className="text-2xl font-bold text-white">{weather.current.temperature}°C</p>
+                  <p className="text-sm text-gray-300">{weather.current.description}</p>
                   {weather.current.feelsLike && (
-                    <p className="text-xs text-gray-500">体感 {weather.current.feelsLike}°C</p>
+                    <p className="text-xs text-gray-400">体感 {weather.current.feelsLike}°C</p>
                   )}
                 </div>
               </div>

@@ -286,12 +286,12 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-white">
       <Form className="space-y-6">
         {/* Duration Selection */}
         <div>
           <label className="label">
-            <span className="label-text font-semibold">滞在時間</span>
+            <span className="label-text font-semibold text-white">滞在時間</span>
           </label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {[
@@ -301,7 +301,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
               { value: "1night2days", label: "1泊2日" },
               { value: "2nights3days", label: "2泊3日" }
             ].map(option => (
-              <label key={option.value} className="cursor-pointer">
+              <label key={option.value} className="cursor-pointer flex items-center">
                 <input
                   type="radio"
                   name="duration"
@@ -310,7 +310,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
                   onChange={(e) => handleInputChange("duration", e.target.value)}
                   className="radio radio-primary"
                 />
-                <span className="ml-2 text-sm">{option.label}</span>
+                <span className="ml-2 text-sm text-white">{option.label}</span>
               </label>
             ))}
           </div>
@@ -319,7 +319,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
         {/* Group Size */}
         <div>
           <label className="label">
-            <span className="label-text font-semibold">人数</span>
+            <span className="label-text font-semibold text-white">人数</span>
           </label>
           <input
             type="range"
@@ -329,18 +329,18 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
             onChange={(e) => handleInputChange("groupSize", parseInt(e.target.value))}
             className="range range-primary"
           />
-          <div className="w-full flex justify-between text-xs px-2">
+          <div className="w-full flex justify-between text-xs px-2 text-gray-300">
             <span>1人</span>
             <span>5人</span>
             <span>10人</span>
           </div>
-          <p className="text-center mt-2 font-semibold">{formData.groupSize}人</p>
+          <p className="text-center mt-2 font-semibold text-white">{formData.groupSize}人</p>
         </div>
 
         {/* Age Group */}
         <div>
           <label className="label">
-            <span className="label-text font-semibold">年齢層</span>
+            <span className="label-text font-semibold text-white">年齢層</span>
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
@@ -349,7 +349,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
               { value: "senior", label: "シニア" },
               { value: "mixed", label: "混合" }
             ].map(option => (
-              <label key={option.value} className="cursor-pointer">
+              <label key={option.value} className="cursor-pointer flex items-center">
                 <input
                   type="radio"
                   name="ageGroup"
@@ -358,7 +358,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
                   onChange={(e) => handleInputChange("ageGroup", e.target.value)}
                   className="radio radio-secondary"
                 />
-                <span className="ml-2 text-sm">{option.label}</span>
+                <span className="ml-2 text-sm text-white">{option.label}</span>
               </label>
             ))}
           </div>
@@ -367,7 +367,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
         {/* Transportation */}
         <div>
           <label className="label">
-            <span className="label-text font-semibold">交通手段</span>
+            <span className="label-text font-semibold text-white">交通手段</span>
           </label>
           <div className="grid grid-cols-3 gap-2">
             {[
@@ -375,7 +375,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
               { value: "train", label: "🚃 電車" },
               { value: "bus", label: "🚌 バス" }
             ].map(option => (
-              <label key={option.value} className="cursor-pointer">
+              <label key={option.value} className="cursor-pointer flex items-center">
                 <input
                   type="radio"
                   name="transportation"
@@ -384,7 +384,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
                   onChange={(e) => handleInputChange("transportation", e.target.value)}
                   className="radio radio-accent"
                 />
-                <span className="ml-2 text-sm">{option.label}</span>
+                <span className="ml-2 text-sm text-white">{option.label}</span>
               </label>
             ))}
           </div>
