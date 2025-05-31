@@ -1,0 +1,191 @@
+project:
+  name: nikko-travel-planner
+  description: >
+    GPS位置情報と天気予報を活用した日光観光プランナー。
+    滞在時間・人数・年齢・性別に応じた最適な観光ルートを提案する
+    Remix + SQLite + 天気API構成のWebアプリ
+
+stack:
+  frontend:
+    framework: Remix
+    router: React Router v7
+    styling:
+      - TailwindCSS v4
+      - daisyUI
+      - shadcn/ui
+    geolocation: Web Geolocation API
+    maps: Leaflet.js (OpenStreetMap)
+  backend:
+    runtime: Node.js
+    framework: Remix（サーバーサイド含む）
+    db:
+      orm: Drizzle ORM
+      dialect: SQLite
+      driver: better-sqlite3
+    external_apis:
+      - OpenWeatherMap API (天気予報)
+      - 国土地理院API (地理情報)
+  deployment:
+    platform: Render
+    autoDeploy: true
+    gitIntegration: true
+
+core_features:
+  user_input:
+    - GPS位置取得（現在地から日光までの距離計算）
+    - 滞在時間選択（2時間/半日/1日/1泊2日/2泊3日）
+    - 旅行者情報（人数/年齢層/性別比率）
+    - 交通手段（電車/車/バス）
+
+  recommendation_engine:
+    - 天気予報による屋内外スポット調整
+    - 滞在時間に応じたルート最適化
+    - 年齢・性別による興味関心考慮
+    - 移動時間・混雑状況を加味した提案
+
+  output:
+    - 時間割スケジュール表示
+    - 地図上でのルート表示
+    - 各スポットの詳細情報
+    - 天気に応じた持ち物アドバイス
+
+database_schema:
+  tables:
+    - tourist_spots: 観光地マスター
+    - weather_cache: 天気予報キャッシュ
+    - user_plans: ユーザー作成プラン
+    - spot_reviews: スポット評価
+
+api_integrations:
+  weather:
+    provider: OpenWeatherMap
+    endpoint: "https://api.openweathermap.org/data/2.5/forecast"
+    features:
+      - 5日間天気予報
+      - 時間別詳細予報
+      - 降水確率・風速
+
+  location:
+    gps: Web Geolocation API
+    maps: Leaflet + OpenStreetMap
+    routing: OpenRouteService API
+
+tourist_data:
+  popular_spots:
+    cultural:
+      - 東照宮（所要時間: 1-2時間）
+      - 輪王寺（所要時間: 30分-1時間）
+      - 二荒山神社（所要時間: 30分）
+    nature:
+      - 華厳の滝（所要時間: 30分-1時間）
+      - 中禅寺湖（所要時間: 1-3時間）
+      - いろは坂（ドライブ: 30分）
+    hot_springs:
+      - 湯波の里（食事+温泉: 2-3時間）
+      - 奥日光温泉（宿泊推奨）
+
+tasks:
+  - name: setup-remix-project
+    description: Remixプロジェクトの初期セットアップ
+    commands:
+      - npx create-remix@latest nikko-travel-planner
+      - cd nikko-travel-planner
+      - pnpm install
+
+  - name: install-dependencies
+    description: 必要パッケージのインストール
+    commands:
+      - pnpm add drizzle-orm better-sqlite3
+      - pnpm add leaflet react-leaflet
+      - pnpm add date-fns axios
+      - pnpm add -D @types/leaflet tailwindcss daisyui
+      - pnpm add -D drizzle-kit eslint prettier
+
+  - name: setup-database
+    description: SQLiteデータベースとスキーマ設定
+    files:
+      - drizzle.config.ts
+      - app/db/schema.ts
+      - app/db/seed.ts (日光観光地データ)
+    commands:
+      - pnpm drizzle-kit generate
+      - pnpm drizzle-kit migrate
+
+  - name: create-core-pages
+    description: メインページとコンポーネント作成
+    files:
+      - app/routes/_index.tsx (メインページ)
+      - app/routes/plan.tsx (プラン作成ページ)
+      - app/routes/api.weather.ts (天気API)
+      - app/components/LocationInput.tsx
+      - app/components/PlannerForm.tsx
+      - app/components/RouteMap.tsx
+      - app/components/WeatherWidget.tsx
+
+  - name: implement-geolocation
+    description: GPS位置情報取得機能
+    features:
+      - 現在地取得
+      - 日光までの距離計算
+      - 位置情報許可のUX改善
+
+  - name: weather-integration
+    description: 天気予報API連携
+    env_variables:
+      - OPENWEATHER_API_KEY
+    features:
+      - 明日の天気取得
+      - 時間別予報表示
+      - 天気アイコン表示
+
+  - name: recommendation-logic
+    description: 観光プラン推奨ロジック
+    algorithm:
+      - 滞在時間による優先度付け
+      - 天気による屋内外スポット調整
+      - 年齢層による興味関心マッチング
+      - 効率的なルート計算
+
+  - name: ui-styling
+    description: UIデザインとスタイリング
+    components:
+      - レスポンシブデザイン
+      - 地図とリストの切り替え表示
+      - プラン保存・共有機能
+
+  - name: deploy-setup
+    description: Renderデプロイ設定
+    files:
+      - render.yaml
+      - Dockerfile (if needed)
+    environment:
+      - NODE_ENV: production
+      - DATABASE_URL: SQLite file path
+      - OPENWEATHER_API_KEY: weather API key
+
+example_user_flow:
+  steps:
+    1: "位置情報取得許可 → 現在地表示"
+    2: "旅行条件入力（人数・年齢・滞在時間）"
+    3: "明日の天気予報表示"
+    4: "おすすめプラン自動生成"
+    5: "地図上でルート確認"
+    6: "プラン調整・保存"
+
+development_priorities:
+  phase1: "基本的なプラン表示機能"
+  phase2: "GPS・天気API連携"
+  phase3: "推奨ロジック改善"
+  phase4: "UI/UX改善・モバイル対応"
+
+quality_requirements:
+  - "位置情報取得の失敗時も適切に動作"
+  - "天気API制限時のキャッシュ活用"
+  - "オフライン時の基本機能提供"
+  - "スマートフォンでの操作性重視"
+
+notes:
+  - OpenWeatherMap API キーが必要（無料プランで十分）
+  - 位置情報はHTTPS環境でのみ取得可能
+  - 日光の観光地データは事前にシード
+  - 地図表示にはインターネット接続必要
