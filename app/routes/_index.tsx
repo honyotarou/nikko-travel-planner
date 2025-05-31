@@ -10,9 +10,9 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="relative bg-black">
+    <div className="relative bg-black w-full overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden w-full">
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -53,7 +53,7 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 relative">
+      <section className="py-20 relative bg-black w-full">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -64,7 +64,7 @@ export default function Index() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {[
               {
                 icon: "📍",
@@ -115,7 +115,7 @@ export default function Index() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 relative">
+      <section className="py-20 relative bg-black w-full">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -126,7 +126,7 @@ export default function Index() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 step: "01",

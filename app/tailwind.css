@@ -2,11 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#root,
+.root {
+  overflow-x: hidden;
+  width: 100%;
 }

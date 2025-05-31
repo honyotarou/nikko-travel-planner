@@ -32,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>" />
       </head>
-      <body className="min-h-screen bg-black">
+      <body className="min-h-screen bg-black overflow-x-hidden">
         <div className="flex flex-col min-h-screen">
           <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-gray-800">
             <div className="container mx-auto px-4">

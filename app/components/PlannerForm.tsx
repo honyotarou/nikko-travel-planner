@@ -293,7 +293,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
           <label className="label">
             <span className="label-text font-semibold text-white">滞在時間</span>
           </label>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
             {[
               { value: "2hours", label: "2時間" },
               { value: "halfday", label: "半日" },
@@ -342,7 +342,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
           <label className="label">
             <span className="label-text font-semibold text-white">年齢層</span>
           </label>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
             {[
               { value: "child", label: "子供連れ" },
               { value: "adult", label: "大人" },
@@ -369,7 +369,7 @@ export default function PlannerForm({ spots, userLocation }: PlannerFormProps) {
           <label className="label">
             <span className="label-text font-semibold text-white">交通手段</span>
           </label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {[
               { value: "car", label: "🚗 車" },
               { value: "train", label: "🚃 電車" },
