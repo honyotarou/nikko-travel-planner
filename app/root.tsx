@@ -32,24 +32,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>" />
       </head>
-      <body className="min-h-screen bg-black overflow-x-hidden">
+      <body className="min-h-screen bg-white overflow-x-hidden">
         <div className="flex flex-col min-h-screen">
-          <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-gray-800">
+          <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/95 border-b border-gray-200 shadow-sm">
             <div className="container mx-auto px-4">
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/25">
+                  <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                     <span className="text-white text-xl">🏔️</span>
                   </div>
-                  <a href="/" className="text-white text-xl font-bold">
+                  <a href="/" className="text-gray-900 text-xl font-bold">
                     日光観光プランナー
                   </a>
                 </div>
                 <nav className="hidden md:flex items-center space-x-8">
-                  <a href="/" className="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">
+                  <a href="/" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 text-sm font-medium">
                     ホーム
                   </a>
-                  <a href="/plan" className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105">
+                  <a href="/plan" className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
                     プラン作成
                   </a>
                 </nav>
@@ -61,14 +61,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {children}
           </main>
           
-          <footer className="border-t border-gray-800 bg-gray-900">
+          <footer className="border-t border-gray-200 bg-gray-50">
             <div className="container mx-auto px-4 py-8">
               <div className="text-center">
                 <div className="flex items-center justify-center space-x-2 mb-3">
                   <span className="text-2xl">🏔️</span>
-                  <span className="text-white font-bold">日光観光プランナー</span>
+                  <span className="text-gray-900 font-bold">日光観光プランナー</span>
                 </div>
-                <p className="text-gray-400 text-sm mb-2">GPS位置情報と天気予報を活用した観光プラン提案サービス</p>
+                <p className="text-gray-600 text-sm mb-2">GPS位置情報と天気予報を活用した観光プラン提案サービス</p>
                 <p className="text-gray-500 text-xs">Copyright © 2024 - All rights reserved</p>
               </div>
             </div>

@@ -93,22 +93,22 @@ export default function WeatherWidget() {
   };
 
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-lg">
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-lg">
       <div className="p-6">
-        <h3 className="text-lg font-bold text-white mb-4">
+        <h3 className="text-lg font-bold text-gray-900 mb-4">
           🌤️ 日光の天気予報
         </h3>
         
         {loading && (
           <div className="text-center py-4">
             <span className="loading loading-spinner loading-md"></span>
-            <p className="text-sm text-gray-400 mt-2">天気情報を取得中...</p>
+            <p className="text-sm text-gray-600 mt-2">天気情報を取得中...</p>
           </div>
         )}
         
         {error && (
-          <div className="bg-red-900/20 border border-red-700 rounded-lg p-4">
-            <span className="text-red-400">{error}</span>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <span className="text-red-700">{error}</span>
             <button 
               onClick={fetchWeather}
               className="ml-2 px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700"
@@ -121,8 +121,8 @@ export default function WeatherWidget() {
         {weather && !loading && (
           <div className="space-y-4">
             {weather.isMockData && (
-              <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-2 mb-4">
-                <span className="text-xs text-blue-400">デモデータを表示中（API設定が必要）</span>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 mb-4">
+                <span className="text-xs text-blue-700">デモデータを表示中（API設定が必要）</span>
               </div>
             )}
             
@@ -131,31 +131,31 @@ export default function WeatherWidget() {
               <div className="flex items-center space-x-3">
                 <span className="text-3xl">{getWeatherIcon(weather.current.description)}</span>
                 <div>
-                  <p className="text-2xl font-bold text-white">{weather.current.temperature}°C</p>
-                  <p className="text-sm text-gray-300">{weather.current.description}</p>
+                  <p className="text-2xl font-bold text-gray-900">{weather.current.temperature}°C</p>
+                  <p className="text-sm text-gray-600">{weather.current.description}</p>
                   {weather.current.feelsLike && (
-                    <p className="text-xs text-gray-400">体感 {weather.current.feelsLike}°C</p>
+                    <p className="text-xs text-gray-500">体感 {weather.current.feelsLike}°C</p>
                   )}
                 </div>
               </div>
             </div>
             
             {/* Tomorrow's Weather */}
-            <div className="bg-gray-800 border border-gray-600 p-3 rounded-lg">
-              <h4 className="font-semibold text-sm mb-2 text-white">📅 明日の天気</h4>
+            <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg">
+              <h4 className="font-semibold text-sm mb-2 text-gray-900">📅 明日の天気</h4>
               <div className="flex items-center space-x-3">
                 <span className="text-xl">{getWeatherIcon(weather.tomorrow.description)}</span>
                 <div>
-                  <p className="font-semibold text-white">{weather.tomorrow.temperature}°C</p>
-                  <p className="text-xs text-gray-300">{weather.tomorrow.description}</p>
+                  <p className="font-semibold text-gray-900">{weather.tomorrow.temperature}°C</p>
+                  <p className="text-xs text-gray-600">{weather.tomorrow.description}</p>
                   {weather.tomorrow.precipitation > 0 && (
-                    <p className="text-xs text-blue-300">降水量: {weather.tomorrow.precipitation}mm</p>
+                    <p className="text-xs text-blue-600">降水量: {weather.tomorrow.precipitation}mm</p>
                   )}
                 </div>
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
+            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
                 <span>💧</span>
                 <span>湿度: {weather.current.humidity}%</span>
@@ -178,19 +178,19 @@ export default function WeatherWidget() {
               )}
             </div>
             
-            <div className="border-t border-gray-600 pt-4">
-              <h4 className="font-semibold text-sm mb-2 text-white">🎒 明日の観光アドバイス</h4>
+            <div className="border-t border-gray-200 pt-4">
+              <h4 className="font-semibold text-sm mb-2 text-gray-900">🎒 明日の観光アドバイス</h4>
               <ul className="space-y-1">
                 {getWeatherAdvice(weather.current, weather.tomorrow).map((advice, index) => (
-                  <li key={index} className="text-xs text-gray-300 flex items-start">
-                    <span className="text-blue-400 mr-2 mt-0.5">•</span>
+                  <li key={index} className="text-xs text-gray-600 flex items-start">
+                    <span className="text-blue-600 mr-2 mt-0.5">•</span>
                     <span>{advice}</span>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="text-xs text-gray-400 text-center">
+            <div className="text-xs text-gray-500 text-center">
               最終更新: {new Date(weather.lastUpdated).toLocaleTimeString('ja-JP')}
             </div>
             
