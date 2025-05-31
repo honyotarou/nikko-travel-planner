@@ -3,13 +3,8 @@ services:
     name: nikko-travel-planner
     env: node
     plan: free
-    buildCommand: |
-      npm ci
-      npm run build
-      npx drizzle-kit generate
-      npx drizzle-kit migrate
-      npx tsx app/db/seed.ts
-    startCommand: npm start
+    buildCommand: npm install && npm run build
+    startCommand: npx drizzle-kit generate && npx drizzle-kit migrate && npx tsx app/db/seed.ts && npm start
     envVars:
       - key: NODE_ENV
         value: production
