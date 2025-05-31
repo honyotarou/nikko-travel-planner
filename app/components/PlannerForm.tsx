@@ -35,14 +35,18 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
       // Enhanced plan generation with weather consideration
       let recommendedSpots = [...spots];
       
-      // Filter by duration
-      const maxDuration = {
+      // Filter by duration (accounting for round trip time from current location)
+      const maxDurationMinutes = {
         "2hours": 120,
         "halfday": 240,
         "fullday": 480,
         "1night2days": 960,
         "2nights3days": 1440
       }[formData.duration] || 240;
+      
+      // Calculate round trip time from current location to destination area
+      const roundTripTime = calculateRoundTripTime(userLocation, recommendedSpots, formData.transportation);
+      const availableTimeForActivities = Math.max(60, maxDurationMinutes - roundTripTime); // Reserve at least 1 hour for activities
 
       // Weather-based filtering
       const isRainyTomorrow = weatherData.tomorrow?.description?.includes("雨") || 
@@ -107,18 +111,21 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
       // Sort by enhanced score
       recommendedSpots.sort((a, b) => b.score - a.score);
       
-      // Smart selection considering travel efficiency
-      const selectedSpots = selectOptimalRoute(recommendedSpots, maxDuration, formData.transportation);
+      // Smart selection considering travel efficiency and available time
+      const selectedSpots = selectOptimalRoute(recommendedSpots, availableTimeForActivities, formData.transportation);
       
       // Calculate times
       const totalSpotTime = selectedSpots.reduce((sum, spot) => sum + spot.duration, 0);
-      const travelTime = calculateTravelTime(selectedSpots, formData.transportation);
+      const localTravelTime = calculateTravelTime(selectedSpots, formData.transportation);
+      const totalTravelTime = localTravelTime + roundTripTime;
       
       setGeneratedPlan({
         spots: selectedSpots,
-        totalTime: totalSpotTime + travelTime,
-        travelTime: travelTime,
-        recommendations: generateRecommendations(selectedSpots, formData, weatherData),
+        totalTime: totalSpotTime + totalTravelTime,
+        localTravelTime: localTravelTime,
+        roundTripTime: roundTripTime,
+        totalTravelTime: totalTravelTime,
+        recommendations: generateRecommendations(selectedSpots, formData, weatherData, roundTripTime),
         weatherConsideration: isRainyTomorrow ? "雨予報のため屋内スポットを優先しました" : "好天予報のため屋外スポットも含めました"
       });
     } catch (error) {
@@ -163,6 +170,43 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
     return selected.slice(0, 6); // Max 6 spots
   };
 
+  const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLng/2) * Math.sin(dLng/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
+
+  const calculateRoundTripTime = (currentLocation: {lat: number, lng: number} | null, spots: any[], transportation: string) => {
+    if (!currentLocation || spots.length === 0) return 0;
+    
+    // Find the center of the tourist area (average coordinates)
+    const centerLat = spots.reduce((sum, spot) => sum + spot.latitude, 0) / spots.length;
+    const centerLng = spots.reduce((sum, spot) => sum + spot.longitude, 0) / spots.length;
+    
+    // Calculate distance from current location to tourist area center
+    const distance = calculateDistance(currentLocation.lat, currentLocation.lng, centerLat, centerLng);
+    
+    // Calculate time based on transportation method
+    let speedKmPerHour = 40; // Default car speed including traffic/stops
+    if (transportation === "train") {
+      speedKmPerHour = 50; // Train speed including transfers and waiting
+    } else if (transportation === "bus") {
+      speedKmPerHour = 30; // Bus speed including stops
+    }
+    
+    // Round trip time in minutes
+    const oneWayTimeMinutes = (distance / speedKmPerHour) * 60;
+    const roundTripTimeMinutes = oneWayTimeMinutes * 2;
+    
+    return Math.round(roundTripTimeMinutes);
+  };
+
   const calculateTravelTime = (spots: any[], transportation: string) => {
     if (spots.length <= 1) return 0;
     
@@ -182,7 +226,7 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
   const generateSimplePlan = () => {
     // Fallback simple plan generation (original logic)
     let recommendedSpots = [...spots];
-    const maxDuration = {
+    const maxDurationMinutes = {
       "2hours": 120,
       "halfday": 240,
       "fullday": 480,
@@ -190,32 +234,50 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
       "2nights3days": 1440
     }[formData.duration] || 240;
 
+    // Calculate round trip time even for simple plan
+    const roundTripTime = calculateRoundTripTime(userLocation, recommendedSpots, formData.transportation);
+    const availableTimeForActivities = Math.max(60, maxDurationMinutes - roundTripTime);
+
     recommendedSpots.sort((a, b) => b.popularity - a.popularity);
     
     let totalTime = 0;
     const selectedSpots = [];
     
     for (const spot of recommendedSpots) {
-      if (totalTime + spot.duration <= maxDuration) {
+      if (totalTime + spot.duration <= availableTimeForActivities) {
         selectedSpots.push(spot);
         totalTime += spot.duration;
       }
       if (selectedSpots.length >= 6) break;
     }
 
-    const travelTimePerSpot = formData.transportation === "car" ? 15 : 30;
-    const totalTravelTime = selectedSpots.length > 1 ? (selectedSpots.length - 1) * travelTimePerSpot : 0;
+    const localTravelTime = calculateTravelTime(selectedSpots, formData.transportation);
+    const totalTravelTime = localTravelTime + roundTripTime;
 
     setGeneratedPlan({
       spots: selectedSpots,
       totalTime: totalTime + totalTravelTime,
-      travelTime: totalTravelTime,
-      recommendations: generateRecommendations(selectedSpots, formData)
+      localTravelTime: localTravelTime,
+      roundTripTime: roundTripTime,
+      totalTravelTime: totalTravelTime,
+      recommendations: generateRecommendations(selectedSpots, formData, null, roundTripTime)
     });
   };
 
-  const generateRecommendations = (spots: any[], formData: any, weatherData?: any) => {
+  const generateRecommendations = (spots: any[], formData: any, weatherData?: any, roundTripTime?: number) => {
     const recommendations = [];
+    
+    // Round trip time recommendations
+    if (roundTripTime && roundTripTime > 0) {
+      const hours = Math.floor(roundTripTime / 60);
+      const minutes = roundTripTime % 60;
+      const timeString = hours > 0 ? `${hours}時間${minutes > 0 ? `${minutes}分` : ''}` : `${minutes}分`;
+      recommendations.push(`往復の移動時間は約${timeString}です。余裕を持って出発しましょう。`);
+      
+      if (roundTripTime > 120) {
+        recommendations.push("移動時間が長いため、体調管理と運転疲労にご注意ください。");
+      }
+    }
     
     // Weather-based recommendations
     if (weatherData?.tomorrow) {
@@ -406,11 +468,15 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture, s
             ✨ あなたにおすすめのプラン
           </h3>
           
-          <div className="mb-4">
+          <div className="mb-4 space-y-2">
             <p className="text-sm text-gray-600">
-              総所要時間: {Math.floor(generatedPlan.totalTime / 60)}時間{generatedPlan.totalTime % 60}分 
-              （移動時間 {generatedPlan.travelTime}分を含む）
+              総所要時間: {Math.floor(generatedPlan.totalTime / 60)}時間{generatedPlan.totalTime % 60}分
             </p>
+            <div className="text-xs text-gray-500 space-y-1">
+              <p>・現地滞在時間: {Math.floor((generatedPlan.totalTime - generatedPlan.totalTravelTime) / 60)}時間{(generatedPlan.totalTime - generatedPlan.totalTravelTime) % 60}分</p>
+              <p>・現地移動時間: {generatedPlan.localTravelTime}分</p>
+              <p>・往復移動時間: {Math.floor(generatedPlan.roundTripTime / 60)}時間{generatedPlan.roundTripTime % 60}分</p>
+            </div>
           </div>
 
           <div className="space-y-4">
