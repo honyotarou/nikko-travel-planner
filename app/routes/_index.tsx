@@ -3,8 +3,8 @@ import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "全国観光プランナー" },
-    { name: "description", content: "GPS位置情報と天気予報を活用した全国47都道府県の観光プランナー" },
+    { title: "栃木県観光プランナー" },
+    { name: "description", content: "GPS位置情報と天気予報を活用した栃木県の観光プランナー" },
   ];
 };
 
@@ -26,11 +26,11 @@ export default function Index() {
               <span className="text-4xl">🏔️</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900">
-              全国観光プランナー
+              栃木県観光プランナー
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               GPS位置情報と天気予報を活用して、<br className="hidden md:block" />
-              全国47都道府県の観光プランを提案します
+              栃木県の観光プランを提案します
             </p>
           </div>
           
@@ -99,16 +99,16 @@ export default function Index() {
           
           {/* Tourist Spots */}
           <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">🗺️ 対応観光エリア</h3>
+            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">🗺️ 栃木県の観光エリア</h3>
             <div className="flex flex-wrap justify-center gap-3">
-              {["北海道", "東京都", "京都府", "大阪府", "沖縄県", "広島県", "石川県", "長野県"].map((spot, index) => (
+              {["日光", "那須"].map((spot, index) => (
                 <span key={index} className="px-4 py-2 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 text-gray-700 rounded-full text-sm border border-gray-200">
                   {spot}
                 </span>
               ))}
             </div>
             <p className="text-center text-gray-600 text-sm mt-6">
-              全国47都道府県・235箇所以上の観光スポットに対応
+              世界遺産・日光東照宮、華厳の滝、那須高原など魅力的なスポットに対応
             </p>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function Index() {
                 step: "01",
                 icon: "📍",
                 title: "位置情報取得",
-                description: "現在地から日光までの距離を自動計算"
+                description: "現在地から選択した地域までの距離を自動計算"
               },
               {
                 step: "02",

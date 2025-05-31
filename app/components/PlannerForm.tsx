@@ -5,9 +5,10 @@ interface PlannerFormProps {
   spots: any[];
   userLocation: {lat: number, lng: number} | null;
   selectedPrefecture: string;
+  selectedRegion?: string;
 }
 
-export default function PlannerForm({ spots, userLocation, selectedPrefecture }: PlannerFormProps) {
+export default function PlannerForm({ spots, userLocation, selectedPrefecture, selectedRegion }: PlannerFormProps) {
   const [formData, setFormData] = useState({
     duration: "halfday",
     groupSize: 2,
@@ -89,9 +90,9 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture }:
         
         // Transportation considerations
         if (formData.transportation === "train") {
-          // Prefer spots closer to station (simplified logic)
-          if (["東照宮", "輪王寺", "二荒山神社"].includes(spot.name)) {
-            score += 2;
+          // Prefer spots closer to major stations (cultural spots usually better connected)
+          if (spot.category === "cultural") {
+            score += 1;
           }
         }
         
@@ -168,13 +169,11 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture }:
     const baseTimePerMove = transportation === "car" ? 15 : 30;
     let totalTravelTime = (spots.length - 1) * baseTimePerMove;
     
-    // Add extra time for distant spots
-    const hasDistantSpots = spots.some(spot => 
-      ["華厳の滝", "中禅寺湖", "いろは坂", "奥日光温泉"].includes(spot.name)
-    );
+    // Add extra time for nature spots which might be more distant
+    const hasNatureSpots = spots.some(spot => spot.category === "nature");
     
-    if (hasDistantSpots) {
-      totalTravelTime += transportation === "car" ? 30 : 60;
+    if (hasNatureSpots) {
+      totalTravelTime += transportation === "car" ? 20 : 40;
     }
     
     return totalTravelTime;
@@ -253,14 +252,14 @@ export default function PlannerForm({ spots, userLocation, selectedPrefecture }:
     
     // Transportation recommendations
     if (formData.transportation === "train") {
-      recommendations.push("電車利用の場合、バスの時刻表も事前に確認しましょう。");
-      if (spots.some(spot => ["華厳の滝", "中禅寺湖"].includes(spot.name))) {
-        recommendations.push("奥日光エリアは電車+バスでアクセスできます。");
+      recommendations.push("電車利用の場合、現地のバスの時刻表も事前に確認しましょう。");
+      if (spots.some(spot => spot.category === "nature")) {
+        recommendations.push("自然スポットは電車+バス+徒歩でのアクセスになる場合があります。");
       }
     } else if (formData.transportation === "car") {
       recommendations.push("駐車場の確認をおすすめします。");
-      if (spots.some(spot => spot.name === "いろは坂")) {
-        recommendations.push("いろは坂は紅葉シーズンは渋滞の可能性があります。");
+      if (spots.some(spot => spot.category === "nature")) {
+        recommendations.push("山間部や観光地は紅葉・観光シーズンに渋滞の可能性があります。");
       }
     }
     

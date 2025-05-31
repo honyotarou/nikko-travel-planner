@@ -6,6 +6,7 @@ export const touristSpots = sqliteTable('tourist_spots', {
   description: text('description'),
   category: text('category').notNull(), // cultural, nature, hot_springs
   prefecture: text('prefecture').notNull(), // 都道府県名
+  region: text('region').notNull(), // 地域名
   latitude: real('latitude').notNull(),
   longitude: real('longitude').notNull(),
   duration: integer('duration').notNull(), // minutes
